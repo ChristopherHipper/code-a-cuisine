@@ -57,3 +57,8 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `providedIn: 'root'` option for singleton services
 - Prefer the `@Service` decorator over `@Injectable({providedIn: 'root'})` for new singleton services (Angular v22+)
 - Use the `inject()` function instead of constructor injection
+
+## Documentation
+
+- Always use the Context7 MCP server when you need library or API documentation, code generation, or setup/configuration steps, without me having to ask explicitly.
+- For Angular, check Context7 before relying on training data, since APIs change between major versions (v20+ defaults, Signal Forms, `@Service`).
