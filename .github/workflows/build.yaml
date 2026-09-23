@@ -33,13 +33,21 @@ jobs:
         run: npm test -- --watch=false
 
       - name: Create production build
-        run: npm run build -- --configuration production
+        run: npm run build -- --base-href /angular-projects/
 
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Ensure docker home writable
+        run: |
+          mkdir -p "$RUNNER_TEMP/_github_home"
+          chmod -R 0777 "$RUNNER_TEMP/_github_home"
+
+      - name: Deploy to FTP/FTPS
+        uses: airvzxf/ftp-deployment-action@v2
+        env:
+          HOME: /github/workspace
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/code-a-cuisine/browser/
-          server-dir: /angular-projects/
+          local_dir: './dist/code-a-cuisine/browser'
+          remote_dir: '/angular-projects/code-a-cuisine'
+          ssl_verify_certificate: 'false'
