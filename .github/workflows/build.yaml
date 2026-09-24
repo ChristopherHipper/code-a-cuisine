@@ -33,7 +33,7 @@ jobs:
         run: npm test -- --watch=false
 
       - name: Create production build
-        run: npm run build -- --base-href /angular-projects/
+        run: npm run build -- --base-href /angular-projects/code-a-cuisine/
 
       - name: Deploy via lftp
         env:
@@ -46,5 +46,5 @@ jobs:
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
             set ssl:verify-certificate false;
-            mirror -R --verbose ./dist/code-a-cuisine/browser/ /angular-projects/;
+            mirror -R --verbose ./dist/code-a-cuisine/browser/ /angular-projects/code-a-cuisine/;
             bye"
