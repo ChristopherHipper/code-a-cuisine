@@ -1,0 +1,51 @@
+<div class="flex bg-olive-green min-h-dvh w-full">
+  <div class="flex justify-between w-full max-w-360 mx-auto pl-4 md:pl-17">
+    <div class="flex flex-col">
+      <app-header />
+      <main class="flex-1 pr-4 pt-11 md:pt-26">
+        <hgroup class="pb-2 font-semibold text-2xl text-cremy md:text-5xl">
+          AI-Powered recipe generator
+        </hgroup>
+        <h1 class="pb-10 font-ubuntu text-6xl font-bold text-cremy md:text-8xl">Code à Cuisine</h1>
+        <a
+          [routerLink]="'/ingredients'"
+          class="inline-block p-4 bg-cremy text-green font-semibold cursor-pointer hover:bg-cremy-hover md:px-6 md:py-4 md:text-2xl"
+        >
+          Get started
+        </a>
+      </main>
+      <aside
+        aria-labelledby="cookbook-teaser"
+        class="flex flex-col gap-4 mb-10 md:flex-row md:items-center"
+      >
+        <h2
+          id="cookbook-teaser"
+          class="pl-4 font-ubuntu font text-2xl text-cremy font-medium md:text-3xl"
+        >
+          Hungry for inspiration
+        </h2>
+        <a
+          [routerLink]="'/cookbook'"
+          class="flex gap-2.5 items-center text-lg self-start px-4 py-3 bg-transparent text-cremy font-medium cursor-pointer hover:bg-cremy-hover-light md:text-xl"
+          >Go to cookbook
+          <svg
+            width="32"
+            height="20"
+            viewBox="0 0 32 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              transform="matrix(-1 0 0 1 32 0)"
+              d="M26 11C26.5523 11 27 10.5523 27 10C27 9.44772 26.5523 9 26 9L26 11ZM5.29289 9.29289C4.90237 9.68342 4.90237 10.3166 5.29289 10.7071L11.6569 17.0711C12.0474 17.4616 12.6805 17.4616 13.0711 17.0711C13.4616 16.6805 13.4616 16.0474 13.0711 15.6569L7.41421 10L13.0711 4.34314C13.4616 3.95262 13.4616 3.31946 13.0711 2.92893C12.6805 2.53841 12.0474 2.53841 11.6569 2.92893L5.29289 9.29289ZM26 10L26 9L6 9L6 10L6 11L26 11L26 10Z"
+              fill="#FAF0E6"
+            />
+          </svg>
+        </a>
+      </aside>
+    </div>
+    <div class="h-dvh overflow-hidden">
+      <img class="h-full w-auto max-w-120 object-fill" src="/img/Visuals.png" alt="meals" />
+    </div>
+  </div>
+</div>
