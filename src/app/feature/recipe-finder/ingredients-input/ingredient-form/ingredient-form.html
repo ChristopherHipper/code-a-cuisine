@@ -1,0 +1,74 @@
+<form
+  class="flex flex-col gap-4 p-6 rounded-3xl bg-transparent-green text-dark-green md:flex-row md:items-start md:gap-6 md:px-6 md:pt-5 md:pb-12"
+  novalidate
+  (submit)="onSubmit($event)"
+>
+  <div class="flex flex-col gap-2 md:flex-1">
+    <label for="ingredient-name">Ingredient</label>
+    <input
+      #nameInput
+      id="ingredient-name"
+      type="text"
+      autocomplete="off"
+      class="w-full px-4 py-1.5 rounded-full bg-cremy"
+      [formField]="form.name"
+      [attr.aria-invalid]="submitAttempted() && form.name().invalid()"
+      [attr.aria-describedby]="
+        submitAttempted() && form.name().invalid() ? 'ingredient-name-error' : null
+      "
+    />
+
+    <p id="ingredient-name-error" class="text-sm text-red-800 h-5">
+      @if (submitAttempted() && form.name().invalid()) {
+        {{ form.name().errors()[0].message }}
+      }
+    </p>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="ingredient-amount">Serving size</label>
+    <div class="flex items-center gap-2">
+      <input
+        id="ingredient-amount"
+        type="number"
+        inputmode="decimal"
+        class="w-20 px-3 py-1.5 rounded-full bg-cremy text-center"
+        [step]="form.unit().value() === 'pcs' ? 1 : 'any'"
+        [formField]="form.amount"
+        [attr.aria-invalid]="submitAttempted() && form.amount().invalid()"
+        [attr.aria-describedby]="
+          submitAttempted() && form.amount().invalid() ? 'ingredient-amount-error' : null
+        "
+      />
+      <label for="ingredient-unit" class="sr-only">Unit</label>
+      <select
+        id="ingredient-unit"
+        class="px-3 py-1.5 rounded-full bg-cremy cursor-pointer"
+        [formField]="form.unit"
+      >
+        @for (unit of units; track unit.value) {
+          <option [value]="unit.value">{{ unit.label }}</option>
+        }
+      </select>
+      <button
+        type="submit"
+        aria-label="Add ingredient to list"
+        class="flex items-center justify-center size-9 rounded-full cursor-pointer hover:bg-cremy-hover-light"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M8 1v14M1 8h14"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+    @if (submitAttempted() && form.amount().invalid()) {
+      <p id="ingredient-amount-error" class="text-sm text-red-800">
+        {{ form.amount().errors()[0].message }}
+      </p>
+    }
+  </div>
+</form>

@@ -1,0 +1,126 @@
+@let item = ingredient();
+
+@if (editing()) {
+  <form
+    class="flex flex-col gap-1"
+    novalidate
+    (submit)="onSave($event)"
+    (keydown.escape)="cancelEdit()"
+  >
+    <div class="flex flex-wrap items-center gap-2">
+      <label [for]="'edit-name-' + item.id" class="sr-only">Ingredient</label>
+      <input
+        #nameInput
+        type="text"
+        autocomplete="off"
+        class="flex-1 min-w-0 px-3 py-1 rounded-full bg-cremy"
+        [id]="'edit-name-' + item.id"
+        [formField]="form.name"
+        [attr.aria-invalid]="submitAttempted() && form.name().invalid()"
+        [attr.aria-describedby]="
+          submitAttempted() && form.name().invalid() ? 'edit-name-error-' + item.id : null
+        "
+      />
+      <label [for]="'edit-amount-' + item.id" class="sr-only">Amount</label>
+      <input
+        type="number"
+        inputmode="decimal"
+        class="w-20 px-3 py-1 rounded-full bg-cremy text-center"
+        [id]="'edit-amount-' + item.id"
+        [step]="form.unit().value() === 'pcs' ? 1 : 'any'"
+        [formField]="form.amount"
+        [attr.aria-invalid]="submitAttempted() && form.amount().invalid()"
+        [attr.aria-describedby]="
+          submitAttempted() && form.amount().invalid() ? 'edit-amount-error-' + item.id : null
+        "
+      />
+      <label [for]="'edit-unit-' + item.id" class="sr-only">Unit</label>
+      <select
+        class="px-3 py-1 rounded-full bg-cremy cursor-pointer"
+        [id]="'edit-unit-' + item.id"
+        [formField]="form.unit"
+      >
+        @for (unit of units; track unit.value) {
+          <option [value]="unit.value">{{ unit.label }}</option>
+        }
+      </select>
+      <button
+        type="submit"
+        class="flex items-center justify-center size-8 rounded-full cursor-pointer hover:bg-cremy-hover-light"
+        [attr.aria-label]="'Save ' + item.name"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M2 8.5l4 4 8-9"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="flex items-center justify-center size-8 rounded-full cursor-pointer hover:bg-cremy-hover-light"
+        [attr.aria-label]="'Cancel editing ' + item.name"
+        (click)="cancelEdit()"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M3 3l10 10M13 3L3 13"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+    @if (submitAttempted() && form.name().invalid()) {
+      <p class="text-sm text-red-800" [id]="'edit-name-error-' + item.id">
+        {{ form.name().errors()[0].message }}
+      </p>
+    }
+    @if (submitAttempted() && form.amount().invalid()) {
+      <p class="text-sm text-red-800" [id]="'edit-amount-error-' + item.id">
+        {{ form.amount().errors()[0].message }}
+      </p>
+    }
+  </form>
+} @else {
+  <div class="flex items-center gap-2">
+    <span class="flex-1 min-w-0 wrap-break-words">{{ item.name | slice: 0 : 15 }}</span>
+    <span class="whitespace-nowrap">{{ item.amount }} {{ item.unit }}</span>
+    <button
+      #editButton
+      type="button"
+      class="flex items-center justify-center rounded-full cursor-pointer hover:bg-cremy-hover-light"
+      [attr.aria-label]="'Edit ' + item.name"
+      (click)="startEdit()"
+    >
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M10.5 2.5l3 3L5 14H2v-3l8.5-8.5z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="flex items-center justify-center rounded-full cursor-pointer hover:bg-cremy-hover-light"
+      [attr.aria-label]="'Delete ' + item.name"
+      (click)="removeRequested.emit()"
+    >
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.5h6.6L12 4M6.5 6.5v4.5M9.5 6.5v4.5"
+          stroke="currentColor"
+          stroke-width="1.3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+}

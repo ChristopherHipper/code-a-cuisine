@@ -1,1 +1,54 @@
-<p>ingredients-input works!</p>
+<div class="w-full max-w-360 mx-auto px-4 pb-10 md:px-17">
+  <app-header class="text-dark-green" />
+  <main class="flex flex-col items-center pt-8 text-dark-green md:pt-12">
+    <h1 class="pb-4 font-medium text-3xl text-middle-green text-center md:text-5xl">
+      Generate recipe
+    </h1>
+    <p class="pb-10 text-center md:text-xl">
+      Got random stuff in your kitchen? Pop it in—we’ve got the perfect recipe waiting.
+    </p>
+
+    <div class="flex flex-col gap-6 w-full max-w-280 md:flex-row md:items-start">
+      <section aria-label="Add ingredient" class="md:flex-1">
+        <app-ingredient-form />
+      </section>
+
+      <section
+        aria-labelledby="ingredient-list-heading"
+        class="flex flex-col gap-6 md:w-2/4 md:min-w-72"
+      >
+        <div class="min-h-41 p-6 rounded-3xl bg-transparent-green md:pt-5">
+          <h2
+            #listHeading
+            id="ingredient-list-heading"
+            tabindex="-1"
+            class="pb-3 font-normal outline-none"
+          >
+            List of your Ingredients
+          </h2>
+          @if (store.hasIngredients()) {
+            <ul class="flex flex-col gap-2">
+              @for (ingredient of store.ingredients(); track ingredient.id) {
+                <li>
+                  <app-ingredient-list-item
+                    [ingredient]="ingredient"
+                    (removeRequested)="remove(ingredient.id)"
+                  />
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+        @if (store.hasIngredients()) {
+          <a
+            routerLink="/preferences"
+            class="self-end p-4 bg-olive-green text-cremy font-semibold cursor-pointer hover:bg-olive-green-hover md:px-6 md:text-xl"
+          >
+            Next step
+          </a>
+        }
+      </section>
+    </div>
+  </main>
+</div>
