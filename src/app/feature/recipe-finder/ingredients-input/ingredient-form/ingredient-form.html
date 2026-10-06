@@ -12,13 +12,12 @@
       autocomplete="off"
       class="w-full px-4 py-1.5 rounded-full bg-cremy"
       [formField]="form.name"
-      [attr.aria-invalid]="submitAttempted() && form.name().invalid()"
-      [attr.aria-describedby]="
-        submitAttempted() && form.name().invalid() ? 'ingredient-name-error' : null
-      "
     />
 
     <p id="ingredient-name-error" class="text-sm text-red-800 h-5">
+      <!-- invalid() vom Schema ermittelter Validierungsstatus des Feldes
+       errors() liefert ein Array mit den Validierungsfehlern.
+       [0] nimmt den ersten Fehler und .message dessen Fehlermeldung aus dem Schema. -->
       @if (submitAttempted() && form.name().invalid()) {
         {{ form.name().errors()[0].message }}
       }
@@ -35,10 +34,6 @@
         class="w-20 px-3 py-1.5 rounded-full bg-cremy text-center"
         [step]="form.unit().value() === 'pcs' ? 1 : 'any'"
         [formField]="form.amount"
-        [attr.aria-invalid]="submitAttempted() && form.amount().invalid()"
-        [attr.aria-describedby]="
-          submitAttempted() && form.amount().invalid() ? 'ingredient-amount-error' : null
-        "
       />
       <label for="ingredient-unit" class="sr-only">Unit</label>
       <select
@@ -65,10 +60,12 @@
         </svg>
       </button>
     </div>
-    @if (submitAttempted() && form.amount().invalid()) {
-      <p id="ingredient-amount-error" class="text-sm text-red-800">
-        {{ form.amount().errors()[0].message }}
-      </p>
-    }
+    <div class="h-5">
+      @if (form.amount().invalid()) {
+        <p id="ingredient-amount-error" class="text-sm text-red-800">
+          {{ form.amount().errors()[0].message }}
+        </p>
+      }
+    </div>
   </div>
 </form>

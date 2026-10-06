@@ -1,14 +1,4 @@
-import {
-  afterNextRender,
-  Component,
-  ElementRef,
-  inject,
-  Injector,
-  input,
-  output,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { form, FormField, submit } from '@angular/forms/signals';
 import {
   Ingredient,
@@ -26,11 +16,8 @@ import { SlicePipe } from '@angular/common';
 })
 export class IngredientListItem {
   private readonly store = inject(IngredientsStore);
-  private readonly injector = inject(Injector);
-  private readonly nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
-  private readonly editButton = viewChild<ElementRef<HTMLButtonElement>>('editButton');
 
-  readonly ingredient = input.required<Ingredient>();
+  readonly ingredient = input.required<Ingredient>(); //required = verpflichtent vom Parent zu übergeben <Ingredient> der Type der übergeben wird
   readonly removeRequested = output<void>();
 
   protected readonly units = UNIT_OPTIONS;
@@ -40,11 +27,11 @@ export class IngredientListItem {
   protected readonly form = form(this.model, ingredientSchema);
 
   protected startEdit(): void {
+    //Nimmt die aktuellen Daten des Ingredients und fülle damit mein Edit-Formular damit es nicht leer ist
     const { name, amount, unit } = this.ingredient();
     this.form().reset({ name, amount, unit });
     this.submitAttempted.set(false);
     this.editing.set(true);
-    afterNextRender(() => this.nameInput()?.nativeElement.focus(), { injector: this.injector });
   }
 
   protected cancelEdit(): void {
@@ -68,6 +55,5 @@ export class IngredientListItem {
 
   private stopEditing(): void {
     this.editing.set(false);
-    afterNextRender(() => this.editButton()?.nativeElement.focus(), { injector: this.injector });
   }
 }

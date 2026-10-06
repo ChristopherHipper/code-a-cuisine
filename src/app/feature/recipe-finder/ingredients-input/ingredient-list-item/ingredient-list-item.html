@@ -1,3 +1,4 @@
+<!--Verinfachung damit nicht immer ingredient(). ... geschrieben werden muss -->
 @let item = ingredient();
 
 @if (editing()) {
@@ -16,10 +17,6 @@
         class="flex-1 min-w-0 px-3 py-1 rounded-full bg-cremy"
         [id]="'edit-name-' + item.id"
         [formField]="form.name"
-        [attr.aria-invalid]="submitAttempted() && form.name().invalid()"
-        [attr.aria-describedby]="
-          submitAttempted() && form.name().invalid() ? 'edit-name-error-' + item.id : null
-        "
       />
       <label [for]="'edit-amount-' + item.id" class="sr-only">Amount</label>
       <input
@@ -29,10 +26,6 @@
         [id]="'edit-amount-' + item.id"
         [step]="form.unit().value() === 'pcs' ? 1 : 'any'"
         [formField]="form.amount"
-        [attr.aria-invalid]="submitAttempted() && form.amount().invalid()"
-        [attr.aria-describedby]="
-          submitAttempted() && form.amount().invalid() ? 'edit-amount-error-' + item.id : null
-        "
       />
       <label [for]="'edit-unit-' + item.id" class="sr-only">Unit</label>
       <select
