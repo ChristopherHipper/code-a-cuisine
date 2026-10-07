@@ -17,6 +17,10 @@
   --font-ubuntu: 'Ubuntu', sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* quicksand-300 - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
