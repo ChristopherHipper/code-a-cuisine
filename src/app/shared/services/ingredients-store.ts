@@ -70,4 +70,8 @@ export class IngredientsStore {
     const key = name.toLowerCase();
     return this.items().find((item) => item.id !== excludeId && item.name.toLowerCase() === key);
   }
+
+  clear() {
+    this.items.set([]);
+  }
 }

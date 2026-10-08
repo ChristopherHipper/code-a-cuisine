@@ -1,5 +1,10 @@
 export type Unit = 'g' | 'ml' | 'pcs';
 
+export interface Preference {
+  category: string;
+  options: string[] | string;
+}
+
 export interface Ingredient {
   id: number;
   name: string;
