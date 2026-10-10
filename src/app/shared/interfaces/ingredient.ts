@@ -2,6 +2,8 @@ export type Unit = 'g' | 'ml' | 'pcs';
 
 export interface Preference {
   category: string;
+  icon: string;
+  id: string;
   options: string[] | string;
 }
 
