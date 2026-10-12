@@ -1,5 +1,13 @@
 export type Unit = 'g' | 'ml' | 'pcs';
 
+export interface ChoosenPreferences {
+  cookingTime: string;
+  cuisine: string;
+  diet: string;
+  persons: number;
+  portions: number;
+}
+
 export interface Preference {
   category: string;
   icon: string;

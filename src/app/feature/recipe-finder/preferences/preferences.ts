@@ -2,7 +2,9 @@ import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { IngredientsStore } from '../../../shared/services/ingredients-store';
 import { Header } from '../../../shared/components/header/header';
 import { Router } from '@angular/router';
+import { PreferencesStore } from '../../../shared/services/preferences-store';
 import { Preference } from '../../../shared/interfaces/ingredient';
+import { RecipeStore } from '../../../shared/services/recipe-store';
 
 @Component({
   imports: [Header],
@@ -12,12 +14,10 @@ import { Preference } from '../../../shared/interfaces/ingredient';
 })
 export class Preferences {
   private readonly router = inject(Router);
-  private readonly store = inject(IngredientsStore);
-  protected readonly portions = signal<number>(2);
-  protected readonly persons = signal<number>(1);
-  protected readonly cookingTime = signal<string>('');
-  protected readonly cuisine = signal<string>('');
-  protected readonly diet = signal<string>('');
+  private readonly ingredientsStore = inject(IngredientsStore);
+  private readonly recipeStore = inject(RecipeStore);
+  protected readonly preferencesStore = inject(PreferencesStore);
+
   protected readonly preferences = signal<Preference[]>([
     {
       category: 'Coocking time',
@@ -38,7 +38,6 @@ export class Preferences {
       options: ['Vegetarien', 'Vegan', 'Keto', 'No preferences'],
     },
   ]);
-  private readonly choosenPreferences = signal<string[]>([]);
 
   increase(signal: WritableSignal<number>, max: number): void {
     if (signal() >= max) {
@@ -54,35 +53,51 @@ export class Preferences {
     signal.set(signal() - 1);
   }
 
-  backToIngredients() {
-    this.store.clear();
+  backToIngredients(): void {
+    this.ingredientsStore.clear();
     this.router.navigate(['/ingredients']);
   }
 
   selectPreference(preference: string, category: string): void {
     switch (category) {
       case 'cookingTime':
-        this.cookingTime.set(preference);
+        this.preferencesStore.cookingTime.set(preference);
         break;
       case 'cuisine':
-        this.cuisine.set(preference);
+        this.preferencesStore.cuisine.set(preference);
         break;
       case 'diet':
-        this.diet.set(preference);
+        this.preferencesStore.diet.set(preference);
         break;
     }
+    this.checkAllPreferencesSelected();
   }
 
-  setChoosedClass(preference: string, category: string) {
+  setChoosedClass(preference: string, category: string): boolean {
     switch (category) {
       case 'cookingTime':
-        return preference === this.cookingTime();
+        return preference === this.preferencesStore.cookingTime();
       case 'cuisine':
-        return preference === this.cuisine();
+        return preference === this.preferencesStore.cuisine();
       case 'diet':
-        return preference === this.diet();
+        return preference === this.preferencesStore.diet();
       default:
         return false;
     }
+  }
+
+  checkAllPreferencesSelected(): void {
+    if (
+      this.preferencesStore.cookingTime() === '' ||
+      this.preferencesStore.cuisine() === '' ||
+      this.preferencesStore.diet() === ''
+    ) {
+      return;
+    }
+    this.preferencesStore.hasAllPreferences.set(true);
+  }
+
+  generateRecipe() {
+    console.log('recipe:', this.recipeStore.recipe());
   }
 }

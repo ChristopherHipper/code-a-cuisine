@@ -19,7 +19,7 @@
       <div>
         <p class="font-medium text-base mb-2 md:text-xl md:mb-4">How many portions you need?</p>
         <p class="flex gap-2 items-center font-medium text-lg md:text-xl">
-          <button (click)="decrease(portions)">
+          <button (click)="decrease(preferencesStore.portions)">
             <svg
               width="20"
               height="20"
@@ -35,10 +35,10 @@
           </button>
           <span
             class="flex items-center justify-center text-xl size-5.5 w-6 bg-transparent-green"
-            >{{ portions() }}</span
+            >{{ preferencesStore.portions() }}</span
           >
           <span>Portions</span>
-          <button (click)="increase(portions, 12)">
+          <button (click)="increase(preferencesStore.portions, 12)">
             <svg
               width="20"
               height="20"
@@ -57,7 +57,7 @@
       <div>
         <p class="font-medium text-base mb-2 md:text-xl md:mb-4">How many are cooking?</p>
         <p class="flex gap-2 items-center font-medium text-lg md:text-xl">
-          <button (click)="decrease(persons)">
+          <button (click)="decrease(preferencesStore.persons)">
             <svg
               width="20"
               height="20"
@@ -73,10 +73,10 @@
           </button>
           <span
             class="flex items-center justify-center text-xl size-5.5 w-6 bg-transparent-green"
-            >{{ persons() }}</span
+            >{{ preferencesStore.persons() }}</span
           >
           <span>Person</span>
-          <button (click)="increase(persons, 5)">
+          <button (click)="increase(preferencesStore.persons, 5)">
             <svg
               width="20"
               height="20"
@@ -123,5 +123,13 @@
         </div>
       }
     </section>
+    @if (preferencesStore.hasAllPreferences()) {
+      <button
+        (click)="generateRecipe()"
+        class="mt-10 elf-center p-4 bg-olive-green text-cremy font-semibold cursor-pointer hover:bg-olive-green-hover md:px-6 md:text-xl"
+      >
+        Generate a recipe
+      </button>
+    }
   </main>
 </div>
