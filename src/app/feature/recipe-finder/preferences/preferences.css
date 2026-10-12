@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+
+.choosed {
+  background-color: var(--color-transparent-green);
+  color: var(--color-dark-green);
+}
