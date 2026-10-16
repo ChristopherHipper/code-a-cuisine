@@ -1,6 +1,6 @@
-import { computed, inject, Service } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { IngredientsStore } from './ingredients-store';
-import { Recipe } from '../interface/recipe';
+import { AI_Recipe, Recipe } from '../interfaces/recipe';
 import { PreferencesStore } from './preferences-store';
 
 @Service()
@@ -11,4 +11,5 @@ export class RecipeStore {
     ingredients: this.ingredientsStore.ingredients(),
     preferences: this.preferencesStore.choosenPreferences(),
   }));
+  generatedRecipes = signal<AI_Recipe[]>([]);
 }

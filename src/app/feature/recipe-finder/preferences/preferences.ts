@@ -97,7 +97,18 @@ export class Preferences {
     this.preferencesStore.hasAllPreferences.set(true);
   }
 
-  generateRecipe() {
-    console.log('recipe:', this.recipeStore.recipe());
+  async generateRecipe() {
+    const recipe = this.recipeStore.recipe();
+    const url = `http://localhost:5678/webhook-test/code-a-cuisine?recipe=${encodeURIComponent(JSON.stringify(recipe))}`;
+    try {
+      const response = await fetch(url);
+      const text = await response.text();
+      const data = JSON.parse(text);
+      console.log('n8n Response:', data);
+      this.recipeStore.generatedRecipes.set(data);
+    } catch (error) {
+      console.log('Fehler beim Generieren des Rezepts:', error);
+    }
+    console.log('stored Recipes:', this.recipeStore.generatedRecipes());
   }
 }
