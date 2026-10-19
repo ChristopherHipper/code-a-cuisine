@@ -1,0 +1,647 @@
+/* ========================================
+   GRUNDLAYOUT
+======================================== */
+
+:host {
+  display: block;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px;
+
+  width: 100%;
+  padding: 24px;
+}
+
+/* ========================================
+   ANIMATIONSFLÄCHE
+======================================== */
+
+.animation-card {
+  position: relative;
+
+  width: min(340px, 75vw);
+  aspect-ratio: 0.8;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  border-radius: 28px;
+  background: #c4d0c4;
+}
+
+/* Alle SVG-Elemente */
+
+.ingredient {
+  position: absolute;
+  display: block;
+
+  overflow: visible;
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+/* ========================================
+   1. SCHÜSSEL
+======================================== */
+
+.bowl {
+  z-index: 2;
+
+  width: 52%;
+  left: 24%;
+  bottom: 7%;
+
+  animation: bowl-enter 900ms cubic-bezier(0.2, 0.8, 0.3, 1) 400ms forwards;
+}
+
+@keyframes bowl-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(130px) scale(0.8);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-7px) scale(1.03);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================
+   2. GEMÜSE
+======================================== */
+
+/* Erstes Salatblatt: von links */
+
+.lettuce-one {
+  z-index: 3;
+
+  width: 29%;
+  left: 24%;
+  bottom: 20%;
+
+  transform-origin: center bottom;
+
+  animation: lettuce-left 850ms cubic-bezier(0.2, 0.8, 0.3, 1) 1100ms forwards;
+}
+
+/* Zweites Salatblatt: von rechts */
+
+.lettuce-two {
+  z-index: 4;
+
+  width: 31%;
+  left: 43%;
+  bottom: 18%;
+
+  transform-origin: center bottom;
+
+  animation: lettuce-right 850ms cubic-bezier(0.2, 0.8, 0.3, 1) 1700ms forwards;
+}
+
+/* Tomate */
+
+.tomato {
+  z-index: 5;
+
+  width: 21%;
+  left: 28%;
+  bottom: 25%;
+
+  animation: tomato-enter 700ms ease-out 2300ms forwards;
+}
+
+/* Karotte */
+
+.carrot {
+  z-index: 5;
+
+  width: 31%;
+  left: 40%;
+  bottom: 25%;
+
+  animation: carrot-enter 750ms ease-out 2800ms forwards;
+}
+
+@keyframes lettuce-left {
+  0% {
+    opacity: 0;
+    transform: translate(-150px, -25px) rotate(-35deg);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(8px, 4px) rotate(8deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+@keyframes lettuce-right {
+  0% {
+    opacity: 0;
+    transform: translate(160px, -35px) rotate(35deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-7px, 4px) rotate(-8deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+@keyframes tomato-enter {
+  0% {
+    opacity: 0;
+    transform: translate(-100px, -110px) rotate(-120deg) scale(0.5);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(4px, 5px) rotate(12deg) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes carrot-enter {
+  0% {
+    opacity: 0;
+    transform: translate(120px, -90px) rotate(90deg);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-5px, 4px) rotate(-12deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+/* ========================================
+   3. SALZ- UND PFEFFERSTREUER
+======================================== */
+
+.shaker {
+  width: 24%;
+  top: 17%;
+
+  transform-origin: center bottom;
+}
+
+/* Pfeffer kommt von links */
+
+.pepper {
+  z-index: 6;
+  left: 18%;
+
+  animation:
+    pepper-enter 800ms ease-out 3500ms forwards,
+    pepper-shake 500ms ease-in-out 4400ms 5,
+    pepper-exit 650ms ease-in 7000ms forwards;
+}
+
+/* Salz kommt von rechts */
+
+.salt {
+  z-index: 6;
+  right: 17%;
+
+  animation:
+    salt-enter 800ms ease-out 3800ms forwards,
+    salt-shake 550ms ease-in-out 4700ms 4,
+    salt-exit 650ms ease-in 7000ms forwards;
+}
+
+@keyframes pepper-enter {
+  0% {
+    opacity: 0;
+    transform: translate(-150px, -80px) rotate(-55deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-70px, -80px) rotate(115deg);
+  }
+}
+
+@keyframes salt-enter {
+  0% {
+    opacity: 0;
+    transform: translate(150px, -80px) rotate(-25deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(70px, -80px) rotate(-115deg);
+  }
+}
+
+@keyframes pepper-shake {
+  0%,
+  100% {
+    transform: translate(-70px, -80px) rotate(115deg);
+  }
+
+  25% {
+    transform: translate(-70px, -83px) rotate(105deg);
+  }
+
+  50% {
+    transform: translate(-70px, -78px) rotate(122deg);
+  }
+
+  75% {
+    transform: translate(-70px, -82px) rotate(110deg);
+  }
+}
+
+@keyframes salt-shake {
+  0%,
+  100% {
+    transform: translate(70px, -80px) rotate(-115deg);
+  }
+
+  25% {
+    transform: translate(70px, -83px) rotate(-105deg);
+  }
+
+  50% {
+    transform: translate(70px, -78px) rotate(-122deg);
+  }
+
+  75% {
+    transform: translate(70px, -82px) rotate(-110deg);
+  }
+}
+
+@keyframes pepper-exit {
+  to {
+    opacity: 0;
+    transform: translate(-120px, -100px) rotate(45deg);
+  }
+}
+
+@keyframes salt-exit {
+  to {
+    opacity: 0;
+    transform: translate(120px, -100px) rotate(70deg);
+  }
+}
+
+/* ========================================
+   GEWÜRZPARTIKEL
+======================================== */
+
+.pepper-particles,
+.salt-particles {
+  position: absolute;
+  z-index: 5;
+
+  top: 29%;
+  width: 25%;
+  height: 28%;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Positionen */
+
+.pepper-particles {
+  left: 23%;
+
+  animation: pepper-particles-active 3000ms linear 4400ms forwards;
+}
+
+.salt-particles {
+  right: 20%;
+
+  animation: salt-particles-active 2300ms linear 4700ms forwards;
+}
+
+/* Einzelne Körner */
+
+.pepper-particles span,
+.salt-particles span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  display: block;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+  opacity: 0;
+
+  background: #344f35;
+}
+
+.salt-particles span {
+  width: 3px;
+  height: 3px;
+
+  background: #f3f0dc;
+}
+
+/* Unterschiedliche Flugbahnen */
+
+.pepper-particles span:nth-child(1) {
+  --drift: -15px;
+  --delay: 0ms;
+}
+
+.pepper-particles span:nth-child(2) {
+  --drift: 9px;
+  --delay: 100ms;
+}
+
+.pepper-particles span:nth-child(3) {
+  --drift: -5px;
+  --delay: 200ms;
+}
+
+.pepper-particles span:nth-child(4) {
+  --drift: 17px;
+  --delay: 300ms;
+}
+
+.pepper-particles span:nth-child(5) {
+  --drift: -20px;
+  --delay: 400ms;
+}
+
+.pepper-particles span:nth-child(6) {
+  --drift: 4px;
+  --delay: 500ms;
+}
+
+.pepper-particles span:nth-child(7) {
+  --drift: 13px;
+  --delay: 150ms;
+}
+
+.pepper-particles span:nth-child(8) {
+  --drift: -10px;
+  --delay: 350ms;
+}
+
+/* Salz */
+
+.salt-particles span:nth-child(1) {
+  --drift: -12px;
+  --delay: 0ms;
+}
+
+.salt-particles span:nth-child(2) {
+  --drift: 12px;
+  --delay: 130ms;
+}
+
+.salt-particles span:nth-child(3) {
+  --drift: -4px;
+  --delay: 260ms;
+}
+
+.salt-particles span:nth-child(4) {
+  --drift: 18px;
+  --delay: 390ms;
+}
+
+.salt-particles span:nth-child(5) {
+  --drift: -16px;
+  --delay: 180ms;
+}
+
+.salt-particles span:nth-child(6) {
+  --drift: 6px;
+  --delay: 330ms;
+}
+
+/* Partikelbewegung */
+
+.pepper-particles span {
+  animation: pepper-fall 700ms linear infinite;
+  animation-delay: var(--delay);
+}
+
+.salt-particles span {
+  animation: salt-fall 650ms linear infinite;
+  animation-delay: var(--delay);
+}
+
+/* Container kontrolliert ein- und ausblenden */
+
+@keyframes pepper-particles-active {
+  0%,
+  5% {
+    opacity: 0;
+  }
+
+  10%,
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes salt-particles-active {
+  0%,
+  5% {
+    opacity: 0;
+  }
+
+  10%,
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Partikel fallen nach unten */
+
+@keyframes pepper-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), 75px) scale(1);
+  }
+}
+
+@keyframes salt-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), 70px) scale(1);
+  }
+}
+
+/* ========================================
+   5. LÖFFEL
+======================================== */
+
+.spoon {
+  z-index: 7;
+
+  width: 43%;
+  right: -45%;
+  bottom: 18%;
+
+  transform-origin: 15% 50%;
+
+  animation: spoon-stir 2200ms ease-in-out 7900ms forwards;
+}
+
+@keyframes spoon-stir {
+  0% {
+    opacity: 0;
+    right: -45%;
+    transform: rotate(-25deg);
+  }
+
+  20% {
+    opacity: 1;
+    right: 8%;
+    transform: rotate(-25deg);
+  }
+
+  35% {
+    right: 8%;
+    transform: rotate(15deg);
+  }
+
+  50% {
+    right: 8%;
+    transform: rotate(-12deg);
+  }
+
+  65% {
+    right: 8%;
+    transform: rotate(15deg);
+  }
+
+  80% {
+    opacity: 1;
+    right: 8%;
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    opacity: 0;
+    right: -45%;
+    transform: rotate(35deg);
+  }
+}
+
+/* ========================================
+   6. LOADING-TEXT
+======================================== */
+
+.loading-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+
+  color: #f5f2e8;
+
+  font-size: clamp(28px, 6vw, 46px);
+  font-weight: 750;
+  letter-spacing: -1.2px;
+
+  white-space: nowrap;
+
+  animation: label-pulse 1800ms ease-in-out infinite;
+}
+
+.loading-dots {
+  display: inline-block;
+  width: 0.95em;
+  text-align: left;
+
+  animation: dots-pulse 1400ms steps(4, end) infinite;
+}
+
+@keyframes label-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.72;
+  }
+}
+
+@keyframes dots-pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* ========================================
+   BARRIEREFREIHEIT
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen *,
+  .loading-screen *::before,
+  .loading-screen *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
