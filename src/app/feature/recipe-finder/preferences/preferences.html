@@ -5,7 +5,7 @@
       <app-recipe-generating />
     </div>
   </div>
-} @else if (!failedGenerating()) {
+} @else if (failedGenerating()) {
   <div class="fixed inset-0 flex bg-olive-green h-full w-full">
     <div class="w-full max-w-360 mx-auto px-4 pb-10 md:px-17">
       <app-header class="text-cremy" />

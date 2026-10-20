@@ -109,13 +109,17 @@ export class Preferences {
       const response = await fetch(url);
       const text = await response.text();
       const data = JSON.parse(text);
+      if (data.success !== true) {
+        this.isGenerating.set(false);
+        this.failedGenerating.set(true);
+      }
       this.recipeStore.generatedRecipes.set(data);
       this.isGenerating.set(false);
       this.router.navigate(['/results']);
     } catch (error) {
       this.isGenerating.set(false);
       this.failedGenerating.set(true);
-      console.log('Fehler beim Generieren des Rezepts:', error);
+      console.log(error);
     }
   }
 }

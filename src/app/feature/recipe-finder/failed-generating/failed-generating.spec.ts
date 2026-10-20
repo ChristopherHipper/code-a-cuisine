@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FailedGenerating } from './failed-generating';
+import { provideRouter } from '@angular/router';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('FailedGenerating', () => {
   let component: FailedGenerating;
@@ -8,6 +10,7 @@ describe('FailedGenerating', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FailedGenerating],
+      providers: [provideZonelessChangeDetection(), provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FailedGenerating);

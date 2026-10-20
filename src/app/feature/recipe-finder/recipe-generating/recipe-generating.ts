@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Header } from '../../../shared/components/header/header';
 
 @Component({
-  imports: [Header],
+  imports: [],
   selector: 'app-recipe-generating',
   styleUrl: './recipe-generating.css',
   templateUrl: './recipe-generating.html',
