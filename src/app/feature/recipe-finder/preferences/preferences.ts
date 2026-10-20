@@ -5,9 +5,11 @@ import { Router } from '@angular/router';
 import { PreferencesStore } from '../../../shared/services/preferences-store';
 import { Preference } from '../../../shared/interfaces/ingredient';
 import { RecipeStore } from '../../../shared/services/recipe-store';
+import { RecipeGenerating } from '../recipe-generating/recipe-generating';
+import { FailedGenerating } from '../failed-generating/failed-generating';
 
 @Component({
-  imports: [Header],
+  imports: [Header, RecipeGenerating, FailedGenerating],
   selector: 'app-preferences',
   styleUrl: './preferences.css',
   templateUrl: './preferences.html',
@@ -17,6 +19,8 @@ export class Preferences {
   private readonly ingredientsStore = inject(IngredientsStore);
   private readonly recipeStore = inject(RecipeStore);
   protected readonly preferencesStore = inject(PreferencesStore);
+  protected readonly isGenerating = signal(false);
+  protected readonly failedGenerating = signal(false);
 
   protected readonly preferences = signal<Preference[]>([
     {
@@ -97,7 +101,25 @@ export class Preferences {
     this.preferencesStore.hasAllPreferences.set(true);
   }
 
-  generateRecipe() {
-    console.log('recipe:', this.recipeStore.recipe());
+  async generateRecipe() {
+    this.isGenerating.set(true);
+    const recipe = this.recipeStore.recipe();
+    const url = `http://localhost:5678/webhook-test/code-a-cuisine?recipe=${encodeURIComponent(JSON.stringify(recipe))}`;
+    try {
+      const response = await fetch(url);
+      const text = await response.text();
+      const data = JSON.parse(text);
+      if (data.success !== true) {
+        this.isGenerating.set(false);
+        this.failedGenerating.set(true);
+      }
+      this.recipeStore.generatedRecipes.set(data);
+      this.isGenerating.set(false);
+      this.router.navigate(['/results']);
+    } catch (error) {
+      this.isGenerating.set(false);
+      this.failedGenerating.set(true);
+      console.log(error);
+    }
   }
 }
