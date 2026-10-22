@@ -6,7 +6,7 @@ export interface Recipe {
 }
 
 export interface AI_Recipe {
-  cooking_persons: string;
+  cooking_persons: number;
   id: number;
   title: string;
   cookingTime: number;
@@ -20,23 +20,19 @@ export interface AI_Recipe {
     fat: number;
     carbohydrates: number;
   };
-  ingredients: [
-    {
-      id: number;
-      name: string;
-      amount: number;
-      unit: string;
-      available: boolean;
-    },
-  ];
+  ingredients: {
+    id: number;
+    name: string;
+    amount: number;
+    unit: string;
+    available: boolean;
+  }[];
   cookingDirection: {
-    seps: [
-      {
-        stepNumber: number;
-        title: string;
-        description: string;
-        assignedPerson: number;
-      },
-    ];
+    seps: {
+      stepNumber: number;
+      title: string;
+      description: string;
+      assignedPerson: number;
+    }[];
   };
 }

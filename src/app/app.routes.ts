@@ -4,6 +4,7 @@ import { IngredientsInput } from './feature/recipe-finder/ingredients-input/ingr
 import { Preferences } from './feature/recipe-finder/preferences/preferences';
 import { navigationGuard } from './shared/guards/navigation-guard';
 import { Results } from './feature/recipe-finder/results/results';
+import { resultsGuard } from './shared/guards/results-guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,13 @@ export const routes: Routes = [
   {
     path: 'results',
     component: Results,
+    canActivate: [resultsGuard],
+  },
+  {
+    path: 'recipe/:id',
+    loadComponent: () =>
+      import('./feature/recipe-detail/recipe-detail').then((m) => m.RecipeDetail),
+    canActivate: [resultsGuard],
   },
   {
     path: 'preferences',
