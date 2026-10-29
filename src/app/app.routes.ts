@@ -5,6 +5,7 @@ import { Preferences } from './feature/recipe-finder/preferences/preferences';
 import { navigationGuard } from './shared/guards/navigation-guard';
 import { Results } from './feature/recipe-finder/results/results';
 import { resultsGuard } from './shared/guards/results-guard';
+import { detailGuard } from './shared/guards/detail-guard';
 
 export const routes: Routes = [
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
     path: 'recipe/:id',
     loadComponent: () =>
       import('./feature/recipe-detail/recipe-detail').then((m) => m.RecipeDetail),
-    canActivate: [resultsGuard],
+    canActivate: [detailGuard],
   },
   {
     path: 'preferences',

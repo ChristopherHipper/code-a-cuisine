@@ -8,6 +8,7 @@ export class Cookbook {
   private readonly data = signal<AI_Recipe[]>([]);
   supabase = createClient(environment.ApiUrl, environment.ApiKey);
   readonly cookbook = this.data.asReadonly();
+  readonly loaded = signal(false);
 
   constructor() {
     this.getCookbook();
@@ -23,8 +24,8 @@ export class Cookbook {
     }
     if (recipes) {
       this.data.set(recipes);
+      this.loaded.set(true);
     }
-    console.log('cookbook: ', this.cookbook());
   }
 
   getSupabaseId(title: string): number {
