@@ -16,4 +16,13 @@ export class PreferencesStore {
     portions: this.portions(),
     persons: this.persons(),
   }));
+
+  reset(): void {
+    this.portions.set(2);
+    this.persons.set(1);
+    this.cookingTime.set('');
+    this.cuisine.set('');
+    this.diet.set('');
+    this.hasAllPreferences.set(false);
+  }
 }

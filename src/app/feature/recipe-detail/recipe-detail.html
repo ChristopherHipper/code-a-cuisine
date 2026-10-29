@@ -1,0 +1,10 @@
+<div class="w-full max-w-360 mx-auto px-4 pb-10 md:px-17">
+  <app-header class="text-dark-green" />
+  <main class="flex flex-col gap-6 pt-10 text-dark-green">
+    <h1 class="text-3xl font-medium md:text-5xl">
+      {{ recipe()?.title ?? 'Recipe not found' }}
+    </h1>
+    <p>Recipe detail – coming soon.</p>
+    <a routerLink="/results" class="self-start underline">Back to results</a>
+  </main>
+</div>

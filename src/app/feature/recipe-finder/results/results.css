@@ -1,0 +1,11 @@
+/* Stretched link: Klickfläche des "View"-Links deckt die ganze Card ab. */
+.card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+li:hover .card-link {
+  background-color: var(--color-cremy-hover);
+}
