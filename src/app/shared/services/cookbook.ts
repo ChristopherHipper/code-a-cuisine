@@ -26,6 +26,7 @@ export class Cookbook {
       this.data.set(recipes);
       this.loaded.set(true);
     }
+    console.log(this.data());
   }
 
   getSupabaseId(title: string): number {

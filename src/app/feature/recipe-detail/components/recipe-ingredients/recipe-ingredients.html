@@ -1,0 +1,41 @@
+<section class="mt-10" aria-labelledby="ingredients-heading">
+  <!-- Platz für die dekorativen Bilder (NgOptimizedImage, alt="") links und rechts der Überschrift -->
+  <h2
+    id="ingredients-heading"
+    class="rounded-2xl bg-cremy py-3 text-center text-2xl font-semibold text-middle-green"
+  >
+    Ingredients
+  </h2>
+  <div class="mt-6 grid gap-8 px-6 md:grid-cols-2 md:px-16">
+    @if (ownIngredients()?.length) {
+      <div>
+        <h3 class="mb-3 text-lg font-semibold text-olive-green">Your ingredients</h3>
+        <ul class="list-disc pl-5 text-dark-green">
+          @for (ingredient of ownIngredients(); track ingredient.id) {
+            <li>
+              <span class="inline-block min-w-20"
+                >{{ ingredient.amount }} {{ ingredient.unit }}</span
+              >
+              {{ ingredient.name }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+    @if (extraIngredients()?.length) {
+      <div>
+        <h3 class="mb-3 text-lg font-semibold text-olive-green">Extra ingredients</h3>
+        <ul class="list-disc pl-5 text-dark-green">
+          @for (ingredient of extraIngredients(); track ingredient.id) {
+            <li>
+              <span class="inline-block min-w-20"
+                >{{ ingredient.amount }} {{ ingredient.unit }}</span
+              >
+              {{ ingredient.name }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>

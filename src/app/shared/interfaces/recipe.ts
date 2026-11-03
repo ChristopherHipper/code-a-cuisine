@@ -6,20 +6,20 @@ export interface Recipe {
 }
 
 export interface AI_Recipe {
-  cooking_persons: number;
+  persons: number;
   id: number;
   title: string;
-  cookingTime: number;
+  cooking_time: number;
   cuisine: string;
   difficulty: string;
-  dietPreference: string;
+  preference: string;
   portions: number;
-  nutrition: {
+  nutritions: {
     energie: number;
     protein: number;
     fat: number;
     carbohydrates: number;
-  };
+  }[];
   ingredients: {
     id: number;
     name: string;
@@ -27,12 +27,10 @@ export interface AI_Recipe {
     unit: string;
     available: boolean;
   }[];
-  cookingDirection: {
-    seps: {
-      stepNumber: number;
-      title: string;
-      description: string;
-      assignedPerson: number;
-    }[];
-  };
+  cooking_description: {
+    stepNumber: number;
+    title: string;
+    description: string;
+    assignedPerson: number;
+  }[];
 }

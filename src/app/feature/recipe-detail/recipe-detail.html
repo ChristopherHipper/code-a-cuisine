@@ -1,10 +1,84 @@
 <div class="w-full max-w-360 mx-auto px-4 pb-10 md:px-17">
   <app-header class="text-dark-green" />
-  <main class="flex flex-col gap-6 pt-10 text-dark-green">
-    <h1 class="text-3xl font-medium md:text-5xl">
-      {{ recipe()?.title ?? 'Recipe not found' }}
-    </h1>
-    <p>Recipe detail – coming soon.</p>
-    <a routerLink="/results" class="self-start underline">Back to results</a>
-  </main>
+  <button (click)="backToResults()" class="flex items-center mt-4">
+    <svg
+      width="32"
+      height="20"
+      viewBox="0 0 32 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M26 11C26.5523 11 27 10.5523 27 10C27 9.44772 26.5523 9 26 9L26 11ZM5.29289 9.29289C4.90237 9.68342 4.90237 10.3166 5.29289 10.7071L11.6569 17.0711C12.0474 17.4616 12.6805 17.4616 13.0711 17.0711C13.4616 16.6805 13.4616 16.0474 13.0711 15.6569L7.41421 10L13.0711 4.34314C13.4616 3.95262 13.4616 3.31946 13.0711 2.92893C12.6805 2.53841 12.0474 2.53841 11.6569 2.92893L5.29289 9.29289ZM26 10L26 9L6 9L6 10L6 11L26 11L26 10Z"
+        fill="#1E5515"
+      />
+    </svg>
+    <span class="text-middle-green">Recipe Results</span>
+  </button>
+  @if (recipe()) {
+    <main
+      class="flex flex-col bg-cremy-light pt-3 px-3 pb-8 rounded-2xl border-4 border-cremy mt-10 overflow-hidden md:pt-10 md:px-12 md:pb-10"
+    >
+      <app-recipe-overview [recipe]="recipe()" />
+      <app-recipe-ingredients [recipe]="recipe()" />
+      <app-recipe-direction [recipe]="recipe()" />
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3 text-dark-green">
+        <p>
+          <span class="font-semibold">Just finished this meal?</span> Give it a heart, so that the
+          others know this is delicious.
+        </p>
+
+        <button
+          type="button"
+          (click)="toggleLike()"
+          [attr.aria-pressed]="liked()"
+          aria-label="Like this recipe"
+          class="rounded-full p-1 text-olive-green hover:text-olive-green-hover"
+        >
+          <svg width="32" height="28" viewBox="0 0 24 22" aria-hidden="true">
+            <path
+              d="M12 20.5 10.55 19.2C5.4 14.53 2 11.45 2 7.5 2 4.42 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09C13.09 2.81 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.95-3.4 7.03-8.55 11.7L12 20.5Z"
+              [attr.fill]="liked() ? 'currentColor' : 'none'"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+      </div>
+    </main>
+
+    <div
+      class="flex flex-wrap rounded-2xl mt-10 items-center justify-center gap-6 bg-light-sage px-6 py-8 text-dark-green md:mt-14"
+    >
+      <p class="text-lg font-medium">Find inspiration for your next culinary adventure!</p>
+      <a
+        routerLink="/cookbook"
+        class="rounded-md bg-olive-green px-6 py-2 font-medium text-white hover:bg-olive-green-hover"
+        >Cookbook</a
+      >
+    </div>
+
+    <a
+      routerLink="/ingredients"
+      class="mt-6 ml-auto flex w-fit items-center gap-2 text-middle-green"
+    >
+      Generate new recipe
+      <svg
+        width="32"
+        height="20"
+        viewBox="0 0 32 20"
+        fill="none"
+        aria-hidden="true"
+        class="rotate-180"
+      >
+        <path
+          d="M26 11C26.5523 11 27 10.5523 27 10C27 9.44772 26.5523 9 26 9L26 11ZM5.29289 9.29289C4.90237 9.68342 4.90237 10.3166 5.29289 10.7071L11.6569 17.0711C12.0474 17.4616 12.6805 17.4616 13.0711 17.0711C13.4616 16.6805 13.4616 16.0474 13.0711 15.6569L7.41421 10L13.0711 4.34314C13.4616 3.95262 13.4616 3.31946 13.0711 2.92893C12.6805 2.53841 12.0474 2.53841 11.6569 2.92893L5.29289 9.29289ZM26 10L26 9L6 9L6 10L6 11L26 11L26 10Z"
+          fill="#1E5515"
+        />
+      </svg>
+    </a>
+  } @else {
+    <p role="status" class="mt-10 text-center text-olive-green">Loading recipe…</p>
+  }
 </div>
