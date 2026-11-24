@@ -14,6 +14,7 @@ export interface AI_Recipe {
   difficulty: string;
   preference: string;
   portions: number;
+  likes: number;
   nutritions: {
     energie: number;
     protein: number;
@@ -28,9 +29,9 @@ export interface AI_Recipe {
     available: boolean;
   }[];
   cooking_description: {
-    stepNumber: number;
+    step_number: number;
     title: string;
     description: string;
-    assignedPerson: number;
+    assigned_person: number;
   }[];
 }

@@ -10,7 +10,7 @@ import { Component, computed, input } from '@angular/core';
   },
 })
 export class ChefBadge {
-  readonly chef = input<number>();
+  chef = input<number>();
   protected readonly isEven = computed(() => this.chef()! % 2 === 0);
   protected readonly oddClasses = 'bg-light-sage';
   protected readonly evenClasses = 'bg-cremy-hover';
