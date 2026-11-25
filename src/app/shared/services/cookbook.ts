@@ -26,6 +26,7 @@ export class Cookbook {
       this.data.set(recipes);
       this.loaded.set(true);
     }
+    console.log(this.data());
   }
 
   getSupabaseId(title: string): number {
@@ -35,5 +36,13 @@ export class Cookbook {
       return recipe.id;
     }
     return firstRecipe?.id;
+  }
+
+  async updateRecipeLikes(likes: number, id: number) {
+    const { error } = await this.supabase.from('recipes').update({ likes }).eq('id', id);
+    await this.getCookbook();
+    if (error) {
+      throw error;
+    }
   }
 }
