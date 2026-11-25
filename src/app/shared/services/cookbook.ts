@@ -37,4 +37,12 @@ export class Cookbook {
     }
     return firstRecipe?.id;
   }
+
+  async updateRecipeLikes(likes: number, id: number) {
+    const { error } = await this.supabase.from('recipes').update({ likes }).eq('id', id);
+    await this.getCookbook();
+    if (error) {
+      throw error;
+    }
+  }
 }

@@ -27,5 +27,10 @@ export class RecipeDetail {
 
   toggleLike() {
     this.liked.update((liked) => !liked);
+    const recipe = this.recipe();
+    if (recipe) {
+      const likes = recipe.likes + (this.liked() ? 1 : -1);
+      this.cookbook.updateRecipeLikes(likes, recipe.id);
+    }
   }
 }
