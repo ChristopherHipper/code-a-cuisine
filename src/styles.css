@@ -4,6 +4,7 @@
 
 @theme {
   --color-olive-green: #396039;
+  --color-olive-green-light: #3960390a;
   --color-middle-green: #1e5515;
   --color-dark-green: #10310b;
   --color-olive-green-hover: #055e05;
@@ -14,7 +15,6 @@
   --color-cremy-hover-light: #fae0c633;
   --color-green: #008000;
   --color-light-sage: #dbe0db;
-
   --font-sans: 'Quicksand', sans-serif;
   --font-ubuntu: 'Ubuntu', sans-serif;
 }
